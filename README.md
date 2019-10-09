@@ -17,6 +17,7 @@ Merupakan otomatisasi pada kamar mandi, dimana lampu dan pompa air(bisa juga kra
 1. sensor ultra sonic
 2. sensor PIR
 3. relay 2 channel
+4. Arduino UNO
 
 ### Definisi
 1. pin 11 pada arduino di sambungkan pada pin echo pada sensor ultra sonic
