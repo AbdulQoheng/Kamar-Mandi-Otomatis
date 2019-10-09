@@ -3,9 +3,11 @@
 #define PIR 10 // Sensor Pir
 #define relay1 7 // Relay pompa air
 #define relay2 8 // Relay lampu
-
+int relay_on = 0;
+int relay_off = 1;
 void setup() {
    // put your setup code here, to run once:
+  Serial.begin(9600);
   pinMode(trigPin, OUTPUT); // Menjadikan trigPin menjadi OUTPUT
   pinMode(echoPin, INPUT); // Menjadikan echoPin menjadi INPUT
   pinMode(PIR, INPUT); // menjadikan PIR menjadi INPUT
@@ -23,18 +25,22 @@ void loop() {
   double jarak = 0.0343 *(data/2);
   double onpir = digitalRead(PIR);
 
-  if (jarak > 5 && onpir == LOW){digitalWrite(relay1, HIGH);
-    digitalWrite(relay2, LOW);
+  Serial.println(jarak);
+  Serial.println(onpir);
+  
+  if (jarak > 5 && onpir == LOW){
+    digitalWrite(relay1, relay_on);
+    digitalWrite(relay2, relay_off);
   } else if (jarak <= 5 && onpir == LOW){
-    digitalWrite(relay1,LOW);
-    digitalWrite(relay2,LOW);
-  } else if (jarak >= 50 && onpir == HIGH){
-    digitalWrite(relay1, HIGH);
-    digitalWrite(relay2, HIGH);
+    digitalWrite(relay1,relay_off);
+    digitalWrite(relay2,relay_off);
+  } else if (jarak >= 12 && onpir == HIGH){
+    digitalWrite(relay1, relay_on);
+    digitalWrite(relay2, relay_on);
   } else if (jarak <= 5 && onpir == HIGH){
-    digitalWrite(relay1, LOW);
+    digitalWrite(relay1, relay_off);
+    digitalWrite(relay2, relay_on);
   }
   
-  digitalWrite(relay2, HIGH);
-  delay(500);
+  delay(10);
 }
